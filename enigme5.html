@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Énigme Finale ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>Énigme 6 / 6</h2>
+
+      <p class="enigme-text">
+        Depuis le début, tout n’est pas un hasard…  
+        <br><br>
+        6 étapes, 6 moments, 6 énigmes.  
+        <br><br>
+        Ce chiffre a une signification particulière.  
+        Tu as déjà toutes les informations pour comprendre.
+        <br><br>
+        Alors dis-moi…
+        <br><br>
+        <strong>Pourquoi 6 ?</strong>
+      </p>
+
+      <input type="text" id="answer" placeholder="Ta réponse">
+
+      <button class="primary" onclick="checkAnswer()">Valider</button>
+      <button class="secondary" onclick="showHint()">Indice</button>
+
+      <p id="hint" class="hint"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById("answer").value.toLowerCase();
+
+      if (
+        answer.includes("6") &&
+        (
+          answer.includes("mois")
+        ) &&
+        (
+          answer.includes("anniversaire") ||
+          answer.includes("jour")
+        )
+      ) {
+        localStorage.setItem("step", 7);
+
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "final.html";
+        }, 500);
+      } else {
+        shake();
+        alert("Tu n’es pas loin… réfléchis au chiffre 6 😉");
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hint").innerText =
+        "Indice : une date importante… et un autre événement juste après 🎂";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Énigme 5 🧠</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>Énigme 5 / 6</h2>
+
+      <p class="enigme-text">
+        Je peux guérir comme blesser,  
+        <br/> Je n’ai pas de forme mais je laisse des traces,  
+        <br/> Je suis invisible mais toujours présent.  
+        <br><br>
+        Qui suis-je ?
+      </p>
+
+      <input type="text" id="answer" placeholder="Ta réponse">
+
+      <button class="primary" onclick="checkAnswer()">Valider</button>
+      <button class="secondary" onclick="showHint()">Indice</button>
+
+      <p id="hint" class="hint"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById("answer").value.toLowerCase().trim();
+
+      if (
+        answer === "le temps" ||
+        answer === "temps"
+      ) {
+        localStorage.setItem("step", 5);
+
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "enigme5.html";
+        }, 500);
+      } else {
+        shake();
+        alert("Ce n’est pas ça… réfléchis encore 🧠");
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hint").innerText =
+        "Indice : tout le monde en manque… ou en profite 😉";
+    }
+  </script>
+
+</body>
+</html>

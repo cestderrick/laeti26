@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Énigme 3 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>Énigme 3 / 6</h2>
+
+      <p>Observe attentivement cette image…</p>
+
+      <img src="images/bibou.png" alt="énigme" class="enigme-image">
+
+      <p>Un mot s’y cache… sauras-tu le trouver ? 👀</p>
+
+      <input type="text" id="answer" placeholder="Ta réponse">
+
+      <button class="primary" onclick="checkAnswer()">Valider</button>
+      <button class="secondary" onclick="showHint()">Indice</button>
+
+      <p id="hint" class="hint"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById("answer").value.toLowerCase().trim();
+
+      if (answer === "bibou") {
+        localStorage.setItem("step", 3);
+
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "enigme3.html";
+        }, 500);
+      } else {
+        shake();
+        alert("Regarde encore… le détail compte 😉");
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hint").innerText =
+        "Indice : ce mot décrit quelque chose entre nous ❤️";
+    }
+  </script>
+
+</body>
+</html>

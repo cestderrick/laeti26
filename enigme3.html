@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Énigme 4 🎧</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>Énigme 4 / 6</h2>
+
+      <p>Écoute attentivement… 🎧</p>
+
+      <button class="primary" onclick="playAudio()">▶️ Lancer l'audio</button>
+
+      <audio id="audio">
+        <source src="audio/enigme3.mp3" type="audio/mpeg">
+      </audio>
+
+      <p>Qui est ce qui se fait la valise ?</p>
+
+      <input type="text" id="answer" placeholder="Ta réponse">
+
+      <button class="primary" onclick="checkAnswer()">Valider</button>
+      <button class="secondary" onclick="showHint()">Indice</button>
+
+      <p id="hint" class="hint"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    const audio = document.getElementById("audio");
+
+    function playAudio() {
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    function checkAnswer() {
+      const answer = document.getElementById("answer").value.toLowerCase().trim();
+
+      if (answer === "nuit noire") { 
+        localStorage.setItem("step", 4);
+
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "enigme4.html";
+        }, 500);
+      } else {
+        shake();
+        alert("Tu ne sais plus ? 👂");
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hint").innerText =
+        "Indice : écoute plusieurs fois si besoin 😉";
+    }
+  </script>
+
+</body>
+</html>

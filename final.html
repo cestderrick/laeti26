@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Pour toi ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+  <div class="container">
+    <div class="card final-card">
+
+      <h2 id="title">✨ BON ANNIVERSAIRE HERMOSITA ✨</h2>
+
+      <p id="step1" class="fade hidden">
+        Tu as résolu toutes les énigmes…
+      </p>
+
+      <div id="gift" class="hidden">
+        <h1>🎁</h1>
+        <p class="gift-text">
+          Une demi-journée spa tous les deux 💆‍♀️💆‍♂️  
+          chez <strong>Calicéo</strong>
+        </p>
+
+        <p class="gift-sub">
+          Et parce que tu le mérites vraiment…
+        </p>
+
+        <p class="gift-highlight">
+          ✨ Un massage de 20 minutes rien que pour toi ✨
+        </p>
+
+        <p class="gift-highlight">
+          Plus qu'à cocher une date ✅
+        </p>
+
+        <p class="final-note">
+          Hâte de partager ce moment avec toi ❤️
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const steps = ["step1", "step2", "step3", "step4"];
+    
+    steps.forEach((id, index) => {
+      setTimeout(() => {
+        document.getElementById(id).classList.remove("hidden");
+      }, 1500 * (index + 1));
+    });
+
+    setTimeout(() => {
+      document.getElementById("gift").classList.remove("hidden");
+    }, 7000);
+  </script>
+
+<script>
+const canvas = document.getElementById("confetti-canvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let confettiParticles = [];
+let animationId = null;
+
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function createConfettiBurst(originX, originY, amount = 180) {
+  for (let i = 0; i < amount; i++) {
+    const angle = random(-Math.PI * 0.9, -Math.PI * 0.1); 
+    const velocity = random(8, 20);
+
+    confettiParticles.push({
+      x: originX,
+      y: originY,
+      w: random(6, 14),
+      h: random(8, 18),
+      vx: Math.cos(angle) * velocity,
+      vy: Math.sin(angle) * velocity,
+      gravity: 0.22,
+      drag: 0.985,
+      rotation: random(0, Math.PI * 2),
+      rotationSpeed: random(-0.25, 0.25),
+      opacity: 1,
+      fade: random(0.003, 0.008),
+      color: `hsl(${random(0, 360)}, 100%, ${random(55, 70)}%)`
+    });
+  }
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  confettiParticles.forEach((p) => {
+    ctx.save();
+    ctx.globalAlpha = p.opacity;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    ctx.restore();
+  });
+}
+
+function updateConfetti() {
+  confettiParticles.forEach((p) => {
+    p.vx *= p.drag;
+    p.vy *= p.drag;
+    p.vy += p.gravity;
+
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rotation += p.rotationSpeed;
+    p.opacity -= p.fade;
+  });
+
+  confettiParticles = confettiParticles.filter((p) => {
+    return p.opacity > 0 && p.y < canvas.height + 40;
+  });
+}
+
+function animateConfetti() {
+  drawConfetti();
+  updateConfetti();
+
+  if (confettiParticles.length > 0) {
+    animationId = requestAnimationFrame(animateConfetti);
+  } else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    cancelAnimationFrame(animationId);
+  }
+}
+
+function launchConfettiCannons() {
+  const y = canvas.height * 0.88;
+
+  createConfettiBurst(canvas.width * 0.2, y, 140);
+  createConfettiBurst(canvas.width * 0.5, y, 180);
+  createConfettiBurst(canvas.width * 0.8, y, 140);
+
+  animateConfetti();
+
+  setTimeout(() => {
+    createConfettiBurst(canvas.width * 0.35, canvas.height * 0.9, 100);
+    createConfettiBurst(canvas.width * 0.65, canvas.height * 0.9, 100);
+  }, 350);
+}
+
+launchConfettiCannons();
+
+// fade global du canvas après quelques secondes
+setTimeout(() => {
+  canvas.style.opacity = "0";
+}, 3200);
+
+// nettoyage complet
+setTimeout(() => {
+  confettiParticles = [];
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.style.display = "none";
+}, 4300);
+</script>
+
+</body>
+</html>

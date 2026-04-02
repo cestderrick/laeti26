@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Énigme 2 ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>Énigme 2 / 6</h2>
+
+      <p class="enigme-text">
+        Depuis que je t’ai rencontrée, tout est devenu plus 
+        <span class="highlight">B</span>eau, plus doux, presque 
+        <span class="highlight">E</span>nchanteur.  
+        Chaque moment  
+        <span class="highlight">A</span>vec toi est précieuuuuux.
+      </p>
+
+      <p>Trouve le mot caché 👀</p>
+
+      <input type="text" id="answer" placeholder="Ta réponse">
+
+      <button class="primary" onclick="checkAnswer()">Valider</button>
+      <button class="secondary" onclick="showHint()">Indice</button>
+
+      <p id="hint" class="hint"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById("answer").value.toLowerCase().trim();
+
+      if (answer === "beau") {
+        localStorage.setItem("step", 2);
+
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "enigme2.html";
+        }, 500);
+      } else {
+        shake();
+        alert("Pas tout à fait… regarde bien les lettres 👀");
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hint").innerText =
+        "Indice : certaines lettres ne sont pas là par hasard 😉";
+    }
+  </script>
+
+</body>
+</html>
